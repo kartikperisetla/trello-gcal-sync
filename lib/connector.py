@@ -47,7 +47,3 @@ class Connector:
                             }
                 }
         return event
-
-if __name__ == "__main__":
-    c = Connector()
-    c.run()
