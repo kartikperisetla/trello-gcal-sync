@@ -36,7 +36,10 @@ class Connector:
         for _, card in board.cards.items():
             if card is not None and card.get_prop("due") is not None:
                 card_hash = card.get_card_hash()
-                card.is_card_due_in_future()
+                
+                # check if due date on card is in future - then only proceed to create cal event
+                if not card.is_card_due_in_future():
+                    continue
                 
                 # check if card_hash already present in history manager - i.e. card already processed earlier
                 if self.hist_manager.get(card_hash):
