@@ -1,7 +1,7 @@
 import requests           
 import json
-from base_entity import *
-from card import *
+from lib.base_entity import *
+from lib.card import *
 
 class Board(BaseEntity):
     def __init__(self, **kwargs):

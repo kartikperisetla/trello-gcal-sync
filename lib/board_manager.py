@@ -1,8 +1,8 @@
 import requests           
 import json
-from auth_mgr import *
-from board import *
-from settings import *
+from lib.auth_mgr import *
+from lib.board import *
+from lib.settings import *
 
 class BoardManager:
     def __init__(self, auth_mgr=None):
@@ -42,7 +42,6 @@ class BoardManager:
             if board_names_set is not None:
                 if _board.get_prop("name") not in board_names_set:
                     continue
-            print("about to fetch cards for board '"+ _board.get_prop("name") +"'")
             _board.fetch_cards()
 
         
