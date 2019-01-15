@@ -1,4 +1,5 @@
 import os
+import sys
 import datetime
 from googleapiclient.discovery import build
 from httplib2 import Http
@@ -38,8 +39,9 @@ class GcalManager:
         print('Event created: %s' % (event.get('htmlLink')))
 
 
-if __name__ == "__main__":
-    event_json = event = {
+
+def test_run():
+  event_json = event = {
   'summary': 'Google I/O 2015',
   'location': '800 Howard St., San Francisco, CA 94103',
   'description': 'A chance to hear more about Google\'s developer products.',
@@ -67,6 +69,11 @@ if __name__ == "__main__":
   },
 }
 
+  gc = GcalManager()
+  gc.add_event(event_json)
 
-    gc = GcalManager()
-    gc.add_event(event_json)
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+      run_type = sys.argv[1]
+      if run_type.upper() == "TEST":
+        test_run()

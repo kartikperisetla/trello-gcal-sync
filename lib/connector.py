@@ -9,8 +9,13 @@ from lib.settings import *
 class Connector:
     def __init__(self):
         am = AuthManager(key = KEY, token = TOKEN)
+        # to handle all Trello board related operations
         self.board_manager = BoardManager(auth_mgr=am)
+
+        # to handle all Google calender relation operations 
         self.gcal_manager = GcalManager()
+
+        # to handle history of actions performed
         self.hist_manager = HistoryManager()
         
         self.processed_card_coll = {}
@@ -22,6 +27,7 @@ class Connector:
 
         board_coll = self.board_manager.get_boards(self.boards_to_process)
         for board in board_coll:
+            # get boards metadata from Trello - only for boards listed under 'BOARDS' in settings.py
             if board.get_prop("name") in self.boards_to_process:
                 self.process_board(board)
         
@@ -45,6 +51,7 @@ class Connector:
                 if self.hist_manager.get(card_hash):
                     continue
 
+                # get event normalized in appropriate format acceptable by target - in this case JSON
                 event = self._get_event_for_card(card, board.get_prop("name"))
                 self.gcal_manager.add_event(event)
                 print("\n","*"*40)
@@ -63,6 +70,7 @@ class Connector:
         print("\n","*"*40)
         print("Event: ", card.get_prop("name") + " [" + board_name+"]")
         
+        #TODO: make timeZone configurable in settings.py
         event = {
                     "summary" : card.get_prop("name") + " [" + board_name+"]",
                     "description" : card.get_prop("desc"),

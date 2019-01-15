@@ -48,6 +48,5 @@ class BoardManager:
 
 if __name__ == "__main__":
     am = AuthManager(key = KEY, token = TOKEN)
-
     bm = BoardManager(auth_mgr=am)
     board_coll = bm.get_boards()

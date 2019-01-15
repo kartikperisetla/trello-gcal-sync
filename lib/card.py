@@ -17,7 +17,6 @@ class Card(BaseEntity):
         due_date = self.get_prop("due")
         due_date = datetime.strptime(due_date, '%Y-%m-%dT%H:%M:%S.%fz')
         local_date = due_date.replace(tzinfo=timezone.utc).astimezone(tz=None)
-        # print("local_date=",local_date," for utc_date=", self.get_prop("due"))
         
         # remove timezone info
         local_date = local_date.replace(tzinfo=None)
